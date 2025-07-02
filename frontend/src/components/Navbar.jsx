@@ -1,6 +1,5 @@
 import React from 'react'
-
-const NavbarNGO = () => {
+const Navbar = () => {
   return (
     <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -42,4 +41,4 @@ const NavbarNGO = () => {
   )
 }
 
-export default NavbarNGO
+export default Navbar;

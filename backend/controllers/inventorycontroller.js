@@ -1,5 +1,4 @@
-const Inventory = require('../models/inventory');
-
+const Inventory=require('../models/Inventory');
 const createnewProduct= async(req,res)=>{
     try{
         const newProduct=new Inventory(req.body);
@@ -12,7 +11,7 @@ const createnewProduct= async(req,res)=>{
     }
 }
 
-const getReports= async(req,res)=>{
+const getInventory= async(req,res)=>{
     const { role, id } = req.user;
     try{
          let products;

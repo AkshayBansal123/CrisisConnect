@@ -1,4 +1,4 @@
-const Disaster = require('../models/disaster');
+const Disaster = require('../models/Disaster');
 
 const createNewDisaster= async(req,res)=>{
     try{

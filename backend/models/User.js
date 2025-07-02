@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Disaster from './disaster.js';
+import Disaster from './Disaster.js';
 const userSchema = new mongoose.Schema(
     {
         username:{type:String,required:true,

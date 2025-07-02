@@ -1,4 +1,4 @@
-const Disaster = require('../models/disaster');
+const Disaster = require('../models/Disaster');
 const User = require('../models/User');
   const { disasterId ,volunteerIds} = req.body;
   const { role } = req.user;
