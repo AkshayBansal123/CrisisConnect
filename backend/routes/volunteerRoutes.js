@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { getVolunteers } = require('../controllers/volunteerController');
-const protect = require('../authentication/middleware/authMiddleware');
-router.post('/', protect,(req,res,next)=>{
+const protect = require('../middleware/authMiddleware');
+router.get('/', protect,(req,res,next)=>{
     const { role } = req.user;
 
     if (role !== 'ngoadmin' ) {
@@ -10,5 +10,4 @@ router.post('/', protect,(req,res,next)=>{
     }
     next(); 
 },getVolunteers);
-router.get('/', protect,getInventory);
 module.exports=router;

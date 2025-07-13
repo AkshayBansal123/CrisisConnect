@@ -10,13 +10,7 @@ const reportSchema=new mongoose.Schema({
     ref: 'User', 
     required: true
   },
-
-  
-  assignedTo: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', 
-    default: null
-  },
+  disaster: { type: mongoose.Schema.Types.ObjectId, ref: 'Disaster' }, 
   timeStamps:true
 });
 

@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 app.post('/register',async(req,res)=>{
-    const {name, role,password,email,contact} = req.body;
+    const {name, role,password,email,contact,ngo,assignedDisasters} = req.body;
     if(!name || !role || !password || !email || !contact) {
         return res.status(400).json({ message: 'Please fill all fields' });
     }
@@ -17,7 +17,9 @@ app.post('/register',async(req,res)=>{
         role:role,
         password:hashedPassword,
         email:email,
-        contact:contact
+        contact:contact,
+        ngo:ngo || null,
+        assignedDisasters: assignedDisasters || []
     })
 
     try{

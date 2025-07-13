@@ -5,6 +5,7 @@ import {useEffect } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import ReportForm from './ReportForm'
+import Navbar from '../components/Navbar';
 const Reporter = () => {
    const navigate = useNavigate();
   const [reports,setReports]=useState([]);

@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbarinventory from '../components/NavbarInventory';
-import {link} from 'react-router-dom';
-import InventoryForm from 'InvntoryForm';
+ import Navbar from '../components/Navbar';
+import {Link} from 'react-router-dom';
+import InventoryForm from './InventoryForm';
 import {useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';

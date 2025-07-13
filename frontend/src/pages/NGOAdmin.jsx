@@ -1,5 +1,5 @@
 import React from 'react'
-import NavbarNGO from '../components/NavbarNGO'
+import Navbar from '../components/Navbar'
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useEffect } from 'react';
@@ -108,6 +108,11 @@ const [Volunteers,setVolunteers]=useState([]);
           {/* ✅ Link to Assign Volunteer page */}
           <Link to={`/assign-volunteer/${disaster._id}`}>
             <button>Assign Volunteer</button>
+        
+          </Link>
+           <Link to={`/assign-item/${disaster._id}`}>
+            <button>Assign Item</button>
+        
           </Link>
            </div>
       ))}

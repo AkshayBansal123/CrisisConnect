@@ -4,15 +4,17 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../styles/Modals.css';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 const Register = () => {
 const navigate =useNavigate()
   const [user,setUser]=useState({username:'',role:'',password:'',email:'',contact:'',ngo:null,assignedDisasters:[]});
     const handleRegister = async () => {
     await axios.post('http://localhost:5000/register', user);
     navigate('/login');
-  };
+  }
+  const [ngos,setngos]=useState([]);
       useEffect(() => {
-         const [ngos,setngos]=useState([]);
+         
          const fetchngos = async () => {
           const token= localStorage.getItem('token');
           try{
@@ -44,10 +46,10 @@ const navigate =useNavigate()
         <div className="modal-dialog modal-dialog-centered w-100 h-100" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalCenterTitle">Register</h5>
+              <h5 className="modal-title" id="exampleModalCenterTitle">Create new account</h5>
           <div className="existing-user-section mt-7">
     <p className="mt-1">Already existing user?</p>
-    <a href="/Login" >Login here</a>
+    <a href="/login" >Login here</a>
   </div>
               <button
                 type="button"
@@ -61,12 +63,12 @@ const navigate =useNavigate()
               <label htmlFor="username" className="form-label">Username</label>
                 <input type="text" id="username"
         className="form-control"
-        placeholder="Enter your username"  onchange={e=> setUser({...user,username:e.target.value})}
+        placeholder="Enter your username"  onChange={e=> setUser({...user,username:e.target.value})}
         required></input>
                 <label htmlFor="password" className="form-label">Password</label>
                 <input type="password" id="password"
         className="form-control"
-        placeholder="Enter your password" onchange={e=> setUser({...user,password:e.target.value})}
+        placeholder="Enter your password" onChange={e=> setUser({...user,password:e.target.value})}
         required></input>
                 <label htmlFor="role" className="form-label">Select role</label>
                 <select id="role" className="form-select" onChange={e => setUser({ ...user, role: e.target.value })} required>
@@ -76,10 +78,10 @@ const navigate =useNavigate()
                     <label htmlFor="contact" className="form-label">Contact no</label>
                 <input type="text" id="contact"
         className="form-control"
-        placeholder="Enter your contact no"   onchange={e=> setUser({...user,contact:e.target.value})}
+        placeholder="Enter your contact no"   onChange={e=> setUser({...user,contact:e.target.value})}
         required></input>
         <label htmlFor="email" className="form-label">Email</label>
-                <input type="email" id="email"  onchange={e=> setUser({...user,email:e.target.value})}
+                <input type="email" id="email"  onChange={e=> setUser({...user,email:e.target.value})}
         className="form-control"
         placeholder="Enter your email"
         required></input>
