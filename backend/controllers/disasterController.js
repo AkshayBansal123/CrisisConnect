@@ -1,5 +1,5 @@
-const Disaster = require('../models/Disaster');
-
+import mongoose from "mongoose";
+import Disaster from "../models/disaster.js";
 const createNewDisaster= async(req,res)=>{
     try{
         const newDisaster=new Disaster(req.body);
@@ -37,4 +37,4 @@ const getDisasters= async(req,res)=>{
     }
 }
 
-module.exports = { createnewDisaster, getDisasters };
+module.exports = { createNewDisaster, getDisasters };

@@ -10,8 +10,9 @@ const reportSchema=new mongoose.Schema({
     ref: 'User', 
     required: true
   },
-  disaster: { type: mongoose.Schema.Types.ObjectId, ref: 'Disaster' }, 
-  timeStamps:true
+  disaster: { type: mongoose.Schema.Types.ObjectId, ref: 'Disaster' }
+}, 
+  {timestamps:true
 });
 
 module.exports=mongoose.model('Reports',reportSchema);

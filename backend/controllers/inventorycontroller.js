@@ -1,5 +1,5 @@
-const Inventory=require('../models/Inventory');
-const createnewProduct= async(req,res)=>{
+const Inventory= require('../models/inventory');
+const createNewProduct= async(req,res)=>{
     try{
         const newProduct=new Inventory(req.body);
         await newProduct.save();
@@ -17,7 +17,7 @@ const getInventory= async(req,res)=>{
          let products;
 
     if (role === 'ngoadmin') {
-      products= await Inventory.find({provider: id});
+      products= await find({provider: id});
     } else {
       return res.status(403).json({ message: "Unauthorized role" });
     }
@@ -30,4 +30,4 @@ const getInventory= async(req,res)=>{
     }
 }
 
-module.exports = { createReport, getReports };
+export default {createNewProduct,getInventory };

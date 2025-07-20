@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Disaster from './Disaster.js';
+import Disaster from './disaster.js';
 const userSchema = new mongoose.Schema(
     {
         username:{type:String,required:true,
@@ -29,8 +29,8 @@ const userSchema = new mongoose.Schema(
              assignedDisasters: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Disaster'
-  }],
-            timeStamps:true
+  }]},
+            {timeStamps:true
         }
 );
 module.exports=mongoose.model("User",userSchema);

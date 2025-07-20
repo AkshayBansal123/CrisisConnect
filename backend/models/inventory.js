@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-import Disaster from './Disaster.js';
+import Disaster from './disaster.js';
 const inventorySchema= new mongoose.Schema(
     {
         itemName:{type:String,required:true},
@@ -13,8 +13,9 @@ const inventorySchema= new mongoose.Schema(
         unit:{type:String,required:true},
         description:{type:String,required:true},
         status:{type:String,enum:['Available', 'Assigned', 'Out of Stock'], default:'Available'},
-        assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'Disaster' },
-        timeStamps:true
+        assignedDisaster: { type: mongoose.Schema.Types.ObjectId, ref: 'Disaster' }
+    },
+        {timeStamps:true
     }
 )
 module.exports=mongoose.model('Inventory',inventorySchema);

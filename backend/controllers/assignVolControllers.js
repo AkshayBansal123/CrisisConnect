@@ -1,9 +1,10 @@
-const Disaster = require('../models/Disaster');
+const Disaster = require('../models/disaster');
 const User = require('../models/User');
-  const { disasterId ,volunteerIds} = req.body;
-  const { role } = req.user;
+ 
   
   const assignVolunteers= async (req, res) => {
+     const { disasterId ,volunteerIds} = req.body;
+  const { role } = req.user;
   if (role !== 'ngoadmin') {
     return res.status(403).json({ message: 'Only NGO admins can assign volunteers' });
   }
@@ -17,8 +18,8 @@ const User = require('../models/User');
     }
 
  volunteerIds.forEach((id) => {
-      if (!disaster.assignedTo.includes(id)) {
-        disaster.assignedTo.push(id);
+      if (!disaster.assignedVol.includes(id)) {
+        disaster.assignedVol.push(id);
       }
     });
 

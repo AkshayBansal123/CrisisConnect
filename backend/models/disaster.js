@@ -6,13 +6,13 @@ const disasterSchema = new mongoose.Schema({
   description: { type: String },
  
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-   assignedTo:[ {
+   assignedVol:[ {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', 
   }],
   assignedItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Inventory' }],
-   status: { type: String, enum: ['New','Active' ,'Resolved'], default: 'New' },
-   timestamps:true
-});
+   status: { type: String, enum: ['New','Active' ,'Resolved'], default: 'New' }},
+   {timestamps:true}
+);
 
 module.exports = mongoose.model('Disaster', disasterSchema);

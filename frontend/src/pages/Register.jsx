@@ -16,11 +16,9 @@ const navigate =useNavigate()
       useEffect(() => {
          
          const fetchngos = async () => {
-          const token= localStorage.getItem('token');
+        
           try{
-            const res = await axios.get('http://localhost:5000/api/ngos', {
-              headers: { Authorization: `Bearer ${token}` },
-            });
+            const res = await axios.get('http://localhost:5000/api/ngos');
             setngos(res.data);
           }
           catch(err){
@@ -73,7 +71,10 @@ const navigate =useNavigate()
                 <label htmlFor="role" className="form-label">Select role</label>
                 <select id="role" className="form-select" onChange={e => setUser({ ...user, role: e.target.value })} required>
                     <option value="volunteer">Volunteer</option>
-                    <option value="victim">Victim</option>
+                    <option value="reporter">Reporter
+                    </option>
+                     <option value="ngo">NGO
+                    </option>
                     </select>
                     <label htmlFor="contact" className="form-label">Contact no</label>
                 <input type="text" id="contact"

@@ -3,6 +3,7 @@ import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useEffect } from 'react';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
 const Volunteer = () => {
   const navigate = useNavigate();
   const [reports,setReports]=useState([]);
@@ -36,8 +37,21 @@ const Volunteer = () => {
 
     fetchReports();
   }, [navigate]);
+
+   const links = [
+    { text: 'About', href: '#', active: true },
+    { text: 'Contact us', href: '#', disabled: false },
+    { text: 'Sign in', href: '/login', disabled: false },
+  ];
+  const handleSearch = (e) => {
+    e.preventDefault();
+    alert('Search triggered!');
+  };
+
+
   return (
     <div>
+     <Navbar brand="CRISISCONNECT" links={links} onSearch={handleSearch} />
       <h1>See assigned incidents</h1>
       <div>
       <ul>
