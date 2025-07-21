@@ -1,21 +1,22 @@
-const Report = require('../models/Report');
 
-const createReport= async(req,res)=>{
-    try{
-        const newReport=new Report(req.body);
-        await newReport.save();
-        res.status(201).json(newReport);
-    }
-    catch(err)
-    {
-        console.log("error in report");
-    }
-}
 
-const getReports= async(req,res)=>{
-    const { role, id } = req.user;
-    try{
-         let reports;
+import Report from '../models/Report.js';
+
+export const createReport = async (req, res) => {
+  try {
+    const newReport = new Report(req.body);
+    await newReport.save();
+    res.status(201).json(newReport);
+  } catch (err) {
+    console.error("Error in report creation:", err.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getReports = async (req, res) => {
+  const { role, id } = req.user;
+  try {
+    let reports;
 
     if (role === 'ngoadmin') {
       reports = await Report.find();
@@ -26,13 +27,10 @@ const getReports= async(req,res)=>{
     } else {
       return res.status(403).json({ message: "Unauthorized role" });
     }
-        
-        res.status(200).json(reports);
-    }
-    catch(err)
-    {
-        console.log("error in getting the reports");
-    }
-}
 
-module.exports = { createReport, getReports };
+    res.status(200).json(reports);
+  } catch (err) {
+    console.error("Error in getting the reports:", err.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

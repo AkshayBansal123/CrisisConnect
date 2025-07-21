@@ -8,9 +8,16 @@ import axios from 'axios';
 const Register = () => {
 const navigate =useNavigate()
   const [user,setUser]=useState({username:'',role:'',password:'',email:'',contact:'',ngo:null,assignedDisasters:[]});
-    const handleRegister = async () => {
-    await axios.post('http://localhost:5000/register', user);
+    const handleRegister = async (e) => {
+        e.preventDefault(); // ✅ stops reload
+        try{
+await axios.post('http://localhost:5000/api/register', user);
     navigate('/login');
+        }
+    catch(err){
+        console.error('Error registering user:', err);
+        alert('Registration failed. Please try again.');
+    }
   }
   const [ngos,setngos]=useState([]);
       useEffect(() => {
@@ -57,7 +64,7 @@ const navigate =useNavigate()
               ></button>
             </div>
             <div className="modal-body">
-              <form >
+              <form  onSubmit={handleRegister}>
               <label htmlFor="username" className="form-label">Username</label>
                 <input type="text" id="username"
         className="form-control"
@@ -99,7 +106,7 @@ const navigate =useNavigate()
             </select>
           </div>
         )}
-                     <button onClick={handleRegister} className="btn btn-primary w-100">Submit</button>
+                     <button type="submit" className="btn btn-primary w-100">Submit</button>
               </form>
             </div>
            

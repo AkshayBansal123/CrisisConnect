@@ -4,8 +4,7 @@ import axios from 'axios';
 
 const AssignItems = () => {
   const { disasterId } = useParams();
-  const [inventory, setInventory] = useState([]);
-  const [selectedItem, setSelectedItem] = useState([]);
+  const [selected, setSelected] = useState([]);
   const [message, setMessage] = useState('');
 
   const token = localStorage.getItem('token');
@@ -14,7 +13,7 @@ const AssignItems = () => {
           const fetchItems = async()=>{
               const token=localStorage.getItem('token');
               try{
-                  const res=await axios.get('http://localhost:5000/api/admin/inventory',{
+                  const res=await axios.get('http://localhost:5000/api/ngo/inventory',{
                       headers:{
                           Authorization:`Bearer ${token}`}
                       }
@@ -35,7 +34,7 @@ const AssignItems = () => {
       const handleSubmit = async()=>{
           const token=localStoreage.getItem('token');
           try{
-              await axios.post('http://localhost:5000/api/disasters/assignItems',{
+              await axios.post('http://localhost:5000/api/ngo/assignItems',{
                   disasterId,
                   itemIds: selected
       },{

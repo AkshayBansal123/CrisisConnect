@@ -32,7 +32,7 @@ const AssignVolunteer = () => {
     const handleSubmit = async()=>{
         const token=localStoreage.getItem('token');
         try{
-            await axios.post('http://localhost:5000/api/disasters/assignVolunteers',{
+            await axios.post('http://localhost:5000/api/ngo/assignVols',{
                 disasterId,
                 volunteerIds: selected
     },{

@@ -1,36 +1,44 @@
 import mongoose from 'mongoose';
-import Disaster from './disaster.js';
+
 const userSchema = new mongoose.Schema(
-    {
-        username:{type:String,required:true,
-            unique:true
-        },
-            role:{
-                type:String,
-                required:true
-            },
-             password:{
-                type:String,
-                required:true
-            },
-                         email:{
-                type:email,
-                required:true
-            },
-                         contact:{
-                type:String,
-                required:true
-            },
-            ngo:{
-                type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    default: null
-            },
-             assignedDisasters: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Disaster'
-  }]},
-            {timeStamps:true
-        }
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    role: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    contact: {
+      type: String,
+      required: true
+    },
+    ngo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null
+    },
+    assignedDisasters: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Disaster'
+      }
+    ]
+  },
+  {
+    timestamps: true // Corrected spelling (was "timeStamps")
+  }
 );
-module.exports=mongoose.model("User",userSchema);
+
+const User = mongoose.models.User ||mongoose.model('User', userSchema);
+export default User;

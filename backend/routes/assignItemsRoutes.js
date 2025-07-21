@@ -1,8 +1,18 @@
-const express = require('express');
+import express from 'express';
+import { assignItems } from '../controllers/assignItemController.js';
+import protect from '../middleware/authmiddleware.js';
+
 const router = express.Router();
-const { assignItems} = require('../controllers/assignItemControllers');
-const protect= require('../middleware/authMiddleware');
-router.post('/', protect,(req,res,next)=>{
-    const { role } = req.user;    
-},assignItems);
-module.exports=router;
+
+// POST: Assign items (Only NGO Admin allowed)
+router.post('/', protect, (req, res, next) => {
+  const { role } = req.user;
+
+  if (role !== 'ngoadmin') {
+    return res.status(403).json({ message: 'Access denied' });
+  }
+
+  next();
+}, assignItems);
+
+export default router;

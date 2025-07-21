@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const disasterSchema = new mongoose.Schema({
   title: { type: String, required: true }, 
@@ -15,4 +15,5 @@ const disasterSchema = new mongoose.Schema({
    {timestamps:true}
 );
 
-module.exports = mongoose.model('Disaster', disasterSchema);
+const Disaster = mongoose.models.Disaster ||mongoose.model('Disaster', disasterSchema);
+export default Disaster;

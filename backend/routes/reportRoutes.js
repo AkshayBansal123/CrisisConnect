@@ -1,14 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const { createReport, getReports } = require('../controllers/reportController');
-const protect = require('../middleware/authMiddleware');
-router.post('/', protect,(req,res,next)=>{
-    const { role } = req.user;
+import express from 'express';
+import { createReport, getReports } from '../controllers/reportController.js';
 
-    if (role !== 'reporter' ) {
-      return res.status(403).json({ message: 'Access denied' });
-    }
-    next(); 
-},createReport);
-router.get('/', protect,getReports);
-module.exports=router;
+
+const router = express.Router();
+
+// 🔐 Protect both routes using verifyToken middleware
+router.post('/', createReport);
+router.get('/', getReports);
+
+export default router;

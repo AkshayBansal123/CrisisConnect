@@ -1,6 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { getNGOs } from '../controllers/NGOContoller.js';
+import protect from '../middleware/authmiddleware.js';
+
 const router = express.Router();
-const { getNGOs } = require('../controllers/NGOContoller')
-const protect = require('../middleware/authMiddleware');
-router.get('/', protect,getNGOs);
-module.exports=router;
+
+router.get('/', getNGOs);
+
+export default router;

@@ -59,12 +59,12 @@ const [user,setUser]=useState({username:'',password:''});
               <label htmlFor="username" className="form-label">Username</label>
                 <input type="text" id="username"
         className="form-control"
-        placeholder="Enter your username"  onchange={e=> setUser({...user,username:e.target.value})}
+        placeholder="Enter your username"  onChange={e=> setUser({...user,username:e.target.value})}
         required></input>
                 <label htmlFor="password" className="form-label">Password</label>
                 <input type="password" id="password"
         className="form-control"
-        placeholder="Enter your password" onchange={e=> setUser({...user,password:e.target.value})}
+        placeholder="Enter your password" onChange={e=> setUser({...user,password:e.target.value})}
         required></input>
                 
                      <button onClick={handleLogin} className="btn btn-primary w-100">Submit</button>

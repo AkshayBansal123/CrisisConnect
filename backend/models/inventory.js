@@ -1,4 +1,4 @@
-const mongoose=require('mongoose');
+import mongoose from 'mongoose';
 import Disaster from './disaster.js';
 const inventorySchema= new mongoose.Schema(
     {
@@ -18,4 +18,5 @@ const inventorySchema= new mongoose.Schema(
         {timeStamps:true
     }
 )
-module.exports=mongoose.model('Inventory',inventorySchema);
+const Inventory=mongoose.models.Inventory ||mongoose.model('Inventory',inventorySchema);
+export default Inventory;

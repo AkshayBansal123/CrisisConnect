@@ -1,19 +1,18 @@
-const express= require('express');
+import express from 'express';
 import User from '../../models/User.js';
-const mongoose=require('mongoose');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const SECRET = process.env.JWT_SECRET || "your_secret_key";
-
-app.post('/register',async(req,res)=>{
-    const {name, role,password,email,contact,ngo,assignedDisasters} = req.body;
-    if(!name || !role || !password || !email || !contact) {
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+const SECRET = process.env.JWT_SECRET || "your_secret_key"
+const register=async(req,res)=>{
+    const {username, role,password,email,contact,ngo,assignedDisasters} = req.body;
+    if(!username || !role || !password || !email || !contact) {
         return res.status(400).json({ message: 'Please fill all fields' });
     }
 
     const hashedPassword=await bcrypt.hash(password,10);
     const newUser=new User({
-        username: name,
+        username: username,
         role:role,
         password:hashedPassword,
         email:email,
@@ -29,10 +28,10 @@ app.post('/register',async(req,res)=>{
      catch (err) {
         res.status(400).json({ message: "Error registering user." });
     }
-})
+}
 
 
-app.post('/login',async(req,res)=>{
+const login=async(req,res)=>{
     const {username,password}=req.body;
     if(!username || !password) {
         return res.status(400).json({ message: 'Please fill all fields' });
@@ -48,4 +47,5 @@ app.post('/login',async(req,res)=>{
     }
     const token=jwt.sign({id:user._id,role:user.role},SECRET,{expiresIn:'1h'});
     res.status(200).json({ token, role:user.role,userId:user._id});
-})
+}
+export{register,login};

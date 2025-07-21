@@ -21,7 +21,7 @@ const InventoryForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/reports', form);
+      await axios.post('http://localhost:5000/api/ngo/inventory', form);
       alert('Product created');
     } catch (err) {
       console.error(err);
