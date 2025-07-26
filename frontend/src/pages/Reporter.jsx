@@ -31,17 +31,27 @@ const Reporter = () => {
         setReports(res.data);
       } catch (err) {
         setError(err.response?.data?.message || 'Something went wrong');
-        if (err.response?.status === 401 || err.response?.status === 403) {
-          navigate('/unauthorized');
-        }
+        
       }
     };
 
     fetchReports();
   }, [navigate]);
+
+    const links = [
+    { text: 'About', href: '#', active: true },
+    { text: 'Contact us', href: '#', disabled: false },
+    { text: 'Sign in', href: '/login', disabled: false },
+  ];
+  const handleSearch = (e) => {
+    e.preventDefault();
+    alert('Search triggered!');
+  };
   return (
+
     <div>
-      <Link to="/ReportForm"> Report new accident</Link>
+
+      <Link to="/reportForm"> Report new accident</Link>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <h1>See previous reports</h1>
       <ul>

@@ -18,17 +18,10 @@ const getDisasters = async (req, res) => {
   try {
     let disasters;
 
-    if (role === 'ngoadmin') {
+  
       disasters = await Disaster.find();
-    } else if (role === 'volunteer') {
-      disasters = await Disaster.find({ assignedTo: id }); // ✅ Fixed: 'reports' ➝ 'disasters'
-    } else if (role === 'reporter') {
-      const reports = await Report.find({ createdBy: id }).select('disaster');
-      const disasterIds = reports.map(r => r.disaster);
-      disasters = await Disaster.find({ _id: { $in: disasterIds } });
-    } else {
-      return res.status(403).json({ message: "Unauthorized role" });
-    }
+ 
+    
 
     res.status(200).json(disasters);
   } catch (err) {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const ReportForm = () => {
   const [disasters, setDisasters] = useState([]);
@@ -8,9 +9,9 @@ const ReportForm = () => {
     title: '',
     location: '',
     description: '',
-    createdBy:LocalStorage.getItem('userId'),
-    assignedTo:null,
-    status:'New'
+    assignedVol:[],
+    assignedItems:[],
+    status:'New',
   });
   useEffect(() => {
     const fetchDisasters = async () => {
@@ -42,45 +43,70 @@ const ReportForm = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
-    let disasterId = selectedDisasterId;
 
-    try {
-      // If user wants to create a new disaster first
-      if (selectedDisasterId === 'new') {
-        const res = await axios.post(
-          'http://localhost:5000/api/disasters',
-          newDisaster,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        disasterId = res.data._id;
-      }
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log("submit triggered ");
+  const token = localStorage.getItem('token');
+  console.log("Token:", token);
+  let disasterId = selectedDisasterId;
 
-      const reportData = {
-        ...form,
-        disaster: disasterId,
-        createdBy: localStorage.getItem('userId'),
-      };
-
-      await axios.post('http://localhost:5000/api/reports', reportData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      alert('Report submitted successfully!');
-      setForm({
-        reporterName: '',
-        contact: '',
-        location: '',
-        description: '',
-      });
-      setSelectedDisasterId('');
-    } catch (err) {
-      console.error('Error submitting report:', err);
-      alert('Failed to submit report.');
+  try {
+    if (selectedDisasterId === 'new') {
+      console.log("Creating new disaster:", newDisaster);
+      const res = await axios.post(
+        'http://localhost:5000/api/disasters',
+        newDisaster,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log("New disaster created:", res.data);
+      disasterId = res.data._id;
     }
-  };
+
+    const reportData = {
+      ...form,
+      disaster: disasterId   };
+
+    console.log("Submitting report:", reportData);
+
+    const reportRes = await axios.post(
+      'http://localhost:5000/api/reports',
+      reportData,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    console.log("Report submitted:", reportRes.data);
+
+    alert('Report submitted successfully!');
+    setForm({
+      reporterName: '',
+      contact: '',
+      location: '',
+      disasterType: '',
+      description: '',
+    });
+    setSelectedDisasterId('');
+  } 
+  catch (err) {
+  console.error('Error submitting report:', err);
+
+  if (err.response) {
+    console.error('🔥 Error Response Data:', err.response.data);
+    console.error('🔥 Error Status:', err.response.status);
+    alert(`Server error: ${err.response.data.message || 'Unknown server error'}`);
+  } else if (err.request) {
+    console.error('🔥 No Response received:', err.request);
+    alert('No response from server. Check your network or backend logs.');
+  } else {
+    console.error('🔥 Error setting up request:', err.message);
+    alert('Unexpected error: ' + err.message);
+  }
+}
+};
+
+ 
 
   return (
     <form onSubmit={handleSubmit}>

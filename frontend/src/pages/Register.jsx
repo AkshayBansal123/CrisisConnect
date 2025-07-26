@@ -10,7 +10,9 @@ const navigate =useNavigate()
   const [user,setUser]=useState({username:'',role:'',password:'',email:'',contact:'',ngo:null,assignedDisasters:[]});
     const handleRegister = async (e) => {
         e.preventDefault(); // ✅ stops reload
+         console.log(user);
         try{
+         
 await axios.post('http://localhost:5000/api/register', user);
     navigate('/login');
         }
@@ -77,6 +79,7 @@ await axios.post('http://localhost:5000/api/register', user);
         required></input>
                 <label htmlFor="role" className="form-label">Select role</label>
                 <select id="role" className="form-select" onChange={e => setUser({ ...user, role: e.target.value })} required>
+                 <option value="" disabled>Select Role</option>
                     <option value="volunteer">Volunteer</option>
                     <option value="reporter">Reporter
                     </option>
@@ -93,19 +96,26 @@ await axios.post('http://localhost:5000/api/register', user);
         className="form-control"
         placeholder="Enter your email"
         required></input>
-        {user.role=='volunteer' && (
-          <div>
-            <label htmlFor="ngo" className="form-label">Select NGO</label>
-            <select id="ngo" className="form-select" onChange={e => setUser({ ...user, ngo: e.target.value })} required>
-              <option value="">Select NGO</option>
-              {ngos.map(ngo => (
-                <option key={ngo._id} value={ngo._id}>
-                  {ngo.username}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
+     
+        {user.role === 'volunteer' && (
+  <div>
+    <label htmlFor="ngo" className="form-label">Select NGO</label>
+    <select
+      id="ngo"
+      className="form-select"
+      disabled={ngos.length === 0}
+      onChange={e => setUser({ ...user, ngo: e.target.value })}
+      required
+    >
+      <option value="">{ngos.length === 0 ? 'No NGOs available' : 'Select NGO'}</option>
+      {ngos.map(ngo => (
+        <option key={ngo._id} value={ngo._id}>
+          {ngo.username}
+        </option>
+      ))}
+    </select>
+  </div>
+)}
                      <button type="submit" className="btn btn-primary w-100">Submit</button>
               </form>
             </div>

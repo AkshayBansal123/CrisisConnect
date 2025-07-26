@@ -14,7 +14,7 @@ const NGOAdmin = () => {
       const token = localStorage.getItem('token');
       const role = localStorage.getItem('role');
 
-      if (!token || role !== 'ngoadmin') {
+      if (!token || role !== 'ngo') {
         navigate('/unauthorized'); // or redirect to login
         return;
       }
@@ -69,6 +69,17 @@ const [Volunteers,setVolunteers]=useState([]);
        } 
   }
 
+
+    const links = [
+    { text: 'About', href: '#', active: true },
+    { text: 'Contact us', href: '#', disabled: false },
+    { text: 'Sign in', href: '/login', disabled: false },
+  ];
+  const handleSearch = (e) => {
+    e.preventDefault();
+    alert('Search triggered!');
+  };
+  
   return (
     <div>
     {error && <p style={{ color: 'red' }}>{error}</p>}

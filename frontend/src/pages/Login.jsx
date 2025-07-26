@@ -19,15 +19,25 @@ const Login = () => {
   }, []);
 const [user,setUser]=useState({username:'',password:''});
        const navigate= useNavigate();
-       const handleLogin= async()=>{
-        const res = await axios.post('http://localhost:5000/api/login', user);
+       const handleLogin= async(e)=>{
+         e.preventDefault();
+        console.log("User data being sent:", user);
+
+        try{
+const res = await axios.post('http://localhost:5000/api/login', user);
+        console.log("Login successful:", res.data);
         if(res.data.token){
           localStorage.setItem('token', res.data.token);
          localStorage.setItem('userId',res.data.userId);
           localStorage.setItem('role', res.data.role);
           navigate(`/${res.data.role}`);
         }
-       }
+        }
+        catch(err){
+          console.error('Error logging in:', err);
+          alert('Login failed. Please check your credentials and try again.');
+        }
+      }
   return (
     <div>
      
@@ -55,7 +65,7 @@ const [user,setUser]=useState({username:'',password:''});
               ></button>
             </div>
             <div className="modal-body">
-              <form >
+              <form onSubmit={handleLogin}>
               <label htmlFor="username" className="form-label">Username</label>
                 <input type="text" id="username"
         className="form-control"
@@ -67,7 +77,7 @@ const [user,setUser]=useState({username:'',password:''});
         placeholder="Enter your password" onChange={e=> setUser({...user,password:e.target.value})}
         required></input>
                 
-                     <button onClick={handleLogin} className="btn btn-primary w-100">Submit</button>
+                     <button type="submit" className="btn btn-primary w-100">Submit</button>
               </form>
             </div>
            

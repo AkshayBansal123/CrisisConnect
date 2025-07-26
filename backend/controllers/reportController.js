@@ -1,6 +1,6 @@
 
 
-import Report from '../models/Report.js';
+import Report from '../models/report.js';
 
 export const createReport = async (req, res) => {
   try {
@@ -20,8 +20,6 @@ export const getReports = async (req, res) => {
 
     if (role === 'ngoadmin') {
       reports = await Report.find();
-    } else if (role === 'volunteer') {
-      reports = await Report.find({ assignedTo: id });
     } else if (role === 'reporter') {
       reports = await Report.find({ createdBy: id });
     } else {
