@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/',  createNewDisaster);
 
-router.get('/', protect, getDisasters);
+router.get('/', getDisasters);
 
 export default router;

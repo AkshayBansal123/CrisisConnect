@@ -114,6 +114,7 @@ const ReportForm = () => {
       <input name="reporterName" placeholder="Your Name" onChange={handleChange} required />
       <input name="contact" placeholder="Contact Info" onChange={handleChange} required />
       <input name="location" placeholder="Location" onChange={handleChange} required />
+      <input name="disasterType" placeholder="Type" onChange={handleChange} required />
       <textarea name="description" placeholder="Description" onChange={handleChange} required />
       <label>Select Existing Disaster or Create New:</label>
       <select

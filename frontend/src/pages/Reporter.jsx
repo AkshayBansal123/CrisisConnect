@@ -23,10 +23,10 @@ const Reporter = () => {
 
       try {
         const res = await axios.get('http://localhost:5000/api/reports', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+         });
 
         setReports(res.data);
       } catch (err) {

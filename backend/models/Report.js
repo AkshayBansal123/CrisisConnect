@@ -9,12 +9,12 @@ const reportSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    
   },
   disaster: { type: mongoose.Schema.Types.ObjectId, ref: 'Disaster' }
 }, {
   timestamps: true
 });
 
-const Reports = mongoose.models.Report ||mongoose.model('Report', reportSchema);
-export default Reports;
+const Report = mongoose.models.Report ||mongoose.model('Report', reportSchema);
+export default Report;

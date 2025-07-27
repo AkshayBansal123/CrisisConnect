@@ -14,7 +14,7 @@ const createNewDisaster = async (req, res) => {
 };
 
 const getDisasters = async (req, res) => {
-  const { role, id } = req.user;
+  
   try {
     let disasters;
 
