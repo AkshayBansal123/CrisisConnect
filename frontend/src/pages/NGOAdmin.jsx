@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import {Link} from 'react-router-dom'
 import {useEffect } from 'react';
 import axios from 'axios';
 const NGOAdmin = () => {
@@ -42,12 +43,12 @@ const NGOAdmin = () => {
 const [Volunteers,setVolunteers]=useState([]);
   const fetchVolunteers= async()=>{
     try{
-        const res=await axios.get('http://localhost:5000/api/volunteers', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res=await axios.get('http://localhost:5000/api/volunteers'
+        );
         setVolunteers(res.data);
+        if (res.data.length === 0) {
+  console.log("No data found.");
+}
     }
        catch(err){
         console.log("Could not find vounteers",err);
@@ -96,12 +97,12 @@ const [Volunteers,setVolunteers]=useState([]);
         }
       </ul>
        <h1>See all the volunteers</h1>
-       <button on click={fetchVolunteers}></button>
+       <button onClick={fetchVolunteers} style={{height:'30px',width:'150px'}}></button>
       <ul>
         {
             Volunteers.map(volunteer=>(
                 <li key={volunteer._id}>
-                    <strong>{volunteer.name}</strong> at {volunteer.location} with contact {volunteer.contact}
+                    <strong>{volunteer.username}</strong> email {volunteer.email} with contact {volunteer.contact}
                     <br/>
                     {volunteer.description}
                 </li>
@@ -109,7 +110,7 @@ const [Volunteers,setVolunteers]=useState([]);
         }
         </ul>
        <h1>See all the disasters</h1>
-        <button on click={fetchDisasters}></button>
+        <button onClick={fetchDisasters}></button>
          {Disasters.map((disaster) => (
         <div key={disaster._id}>
           <h3>{disaster.disasterType}</h3>
@@ -127,6 +128,7 @@ const [Volunteers,setVolunteers]=useState([]);
           </Link>
            </div>
       ))}
+  
     </div>
   )
 }

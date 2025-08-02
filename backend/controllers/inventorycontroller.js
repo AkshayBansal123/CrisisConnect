@@ -13,17 +13,16 @@ export const createNewProduct = async (req, res) => {
 };
 
 export const getInventory = async (req, res) => {
-  const { role, id } = req.user;
+
+  
   try {
     let products;
 
-    if (role === 'ngoadmin') {
-      products = await Inventory.find({ provider: id }); // ✅ FIXED: use Inventory.find()
-    } else {
-      return res.status(403).json({ message: "Unauthorized role" });
-    }
+   
+      products = await Inventory.find();
+   
 
-    res.status(200).json(products); // ✅ FIXED: changed 'reports' to 'products'
+    res.status(200).json(products); 
   } catch (err) {
     console.error("Error in getting the inventory:", err.message);
     res.status(500).json({ message: "Failed to fetch inventory" });

@@ -8,13 +8,7 @@ import protect from '../middleware/authmiddleware.js';
 
 const router = express.Router();
 
-router.get('/', protect, (req, res, next) => {
-  const { role } = req.user;
-
-  if (role !== 'ngoadmin') {
-    return res.status(403).json({ message: 'Access denied' });
-  }
-  next();
-}, getVolunteers);
+router.get('/',
+  getVolunteers);
 
 export default router;

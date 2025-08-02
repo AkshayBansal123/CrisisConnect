@@ -6,23 +6,25 @@ const AssignItems = () => {
   const { disasterId } = useParams();
   const [selected, setSelected] = useState([]);
   const [message, setMessage] = useState('');
-
+  const [items,setItems]=useState([]);
   const token = localStorage.getItem('token');
 
   useEffect(()=>{
           const fetchItems = async()=>{
-              const token=localStorage.getItem('token');
+             
               try{
-                  const res=await axios.get('http://localhost:5000/api/ngo/inventory',{
-                      headers:{
-                          Authorization:`Bearer ${token}`}
-                      }
+                console.log(token);
+                  const res=await axios.get('http://localhost:5000/api/ngo/inventory'
                   )
                   setItems(res.data);
+                  if (res.data && res.data.length === 0) {
+  console.log('Inventory is empty');
+}
+
                   }
               catch(err){
                   console.error(err);
-                  alert('Failed to fetch volunteers');
+                  alert('Failed to fetch items');
               }
           }
           fetchItems();
@@ -32,13 +34,11 @@ const AssignItems = () => {
           setSelected(prev=> prev.includes(id) ? prev.filter(v=> v!=id) : [...prev,id]);
       }
       const handleSubmit = async()=>{
-          const token=localStoreage.getItem('token');
+          const token=localStorage.getItem('token');
           try{
               await axios.post('http://localhost:5000/api/ngo/assignItems',{
                   disasterId,
                   itemIds: selected
-      },{
-          headers:{Authorization: `Bearer %{token}`}
       }
   );
               alert('Items assigned successfully');
@@ -55,7 +55,7 @@ const AssignItems = () => {
 
   return (
        <div>
-     <h2>Assign volunteers to disasters</h2>
+     <h2>Assign items to disasters</h2>
      {items.map((i)=>(
         <div key={i._id}>
         <label>

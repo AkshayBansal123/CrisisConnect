@@ -3,10 +3,8 @@ import { getDisasters, createNewDisaster } from '../controllers/disasterControll
 import protect from '../middleware/authmiddleware.js';
 
 const router = express.Router();
-
-
 router.post('/',  createNewDisaster);
 
 router.get('/', getDisasters);
 
-export default router;
+export default router;;

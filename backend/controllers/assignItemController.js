@@ -4,12 +4,9 @@ import Disaster from '../models/disaster.js';
 
 const assignItems = async (req, res) => {
   const { disasterId, itemIds } = req.body;
-  const { role } = req.user;
+ 
 
-  if (role !== 'ngoadmin') {
-    return res.status(403).json({ message: 'Only NGO admins can assign volunteers' });
-  }
-
+ 
   try {
     const disaster = await Disaster.findById(disasterId);
 

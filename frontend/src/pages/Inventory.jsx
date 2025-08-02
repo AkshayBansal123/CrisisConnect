@@ -9,16 +9,13 @@ const Inventory = () => {
     const navigate = useNavigate();
     const [inventory,setInventory]=useState([]);
     const [error, setError] = useState('');
-   
+   const [newItem,setnewItem]=useState([]);
         useEffect(() => {
       const showInventory = async () => {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
   
-        if (!token || role !== 'ngoadmin') {
-          navigate('/login'); 
-          return;
-        }
+       
   
         try {
           const res = await axios.get('http://localhost:5000/api/ngo/inventory', {
@@ -38,7 +35,9 @@ const Inventory = () => {
   
       showInventory();
     }, [navigate]);
- ;
+ const addItem=async()=>{
+  await axios.post()
+ }
   return (
     <div>
      <Link to="/InventoryForm"> Report new accident</Link>
@@ -58,6 +57,7 @@ const Inventory = () => {
         ))
       }
       </ul>
+      <button style={{height:'40px',width:'180px'}} onClick={addItem}>Add new item</button>
     </div>
   )
 }
