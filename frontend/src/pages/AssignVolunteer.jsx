@@ -30,17 +30,15 @@ const AssignVolunteer = () => {
         setSelected(prev=> prev.includes(id) ? prev.filter(v=> v!=id) : [...prev,id]);
     }
     const handleSubmit = async()=>{
-        const token=localStoreage.getItem('token');
+        const token=localStorage.getItem('token');
         try{
-            await axios.post('http://localhost:5000/api/ngo/assignVols',{
+            await axios.post('http://localhost:5000/api/ngo/assignVols/assign',{
                 disasterId,
                 volunteerIds: selected
-    },{
-        headers:{Authorization: `Bearer %{token}`}
     }
 );
             alert('Volunteers assigned successfully');
-            navigate('/ngoadmin');
+            navigate('/ngo');
         }
         catch(err)
         {
@@ -57,7 +55,7 @@ const AssignVolunteer = () => {
             checked={selected.includes(v._id)}
             onChange={()=>handleSelect(v._id)}
             />
-            {v.name} ({v.email})
+            {v.username} ({v.email})
         </label>
         </div>
      ))}

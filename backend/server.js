@@ -9,8 +9,8 @@ import disasterRoutes from './routes/disasterRoutes.js';
 import inventoryRoutes from './routes/inventoryRoutes.js';
 import volunteerRoutes from './routes/volunteerRoutes.js';
 import NGORoutes from './routes/NGORoutes.js';
-import assignVolunteers from './routes/assignVolRoutes.js';
-import assignItems from './routes/assignItemsRoutes.js';
+import assignVolRoutes from './routes/assignVolRoutes.js';
+import assignItemsRoutes from './routes/assignItemsRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 const app = express();
 
@@ -28,8 +28,9 @@ app.use('/api/disasters', disasterRoutes);
 app.use('/api/ngo/inventory', inventoryRoutes);
 app.use('/api/volunteers', volunteerRoutes);
 app.use('/api/ngos', NGORoutes); 
-app.use('/api/ngo/assignVols', assignVolunteers);
-app.use('/api/ngo/assignItems', assignItems);
+app.use('/api/ngo/assignVols', assignVolRoutes);
+app.use('/api/ngo/assignItems', assignItemsRoutes
+);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URL, {

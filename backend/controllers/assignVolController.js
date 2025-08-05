@@ -2,12 +2,11 @@ import Disaster from '../models/disaster.js';
 import User from '../models/User.js';
 
 const assignVolunteers = async (req, res) => {
+  console.log("1111")
   const { disasterId, volunteerIds } = req.body;
-  const { role } = req.user;
+  console.log("🔥 disasterId received:", disasterId);
+  console.log("🔥 volunteerIds received:", volunteerIds);
 
-  if (role !== 'ngoadmin') {
-    return res.status(403).json({ message: 'Only NGO admins can assign volunteers' });
-  }
 
   try {
     const disaster = await Disaster.findById(disasterId);
@@ -29,7 +28,7 @@ const assignVolunteers = async (req, res) => {
       { _id: { $in: volunteerIds } },
       { $addToSet: { assignedDisasters: disasterId } }
     );
-
+console.log("2222")
     res.status(200).json({ message: 'Volunteers successfully assigned' });
   } catch (err) {
     console.error('Error assigning volunteers:', err.message);

@@ -113,7 +113,7 @@ const [Volunteers,setVolunteers]=useState([]);
         <button onClick={fetchDisasters}></button>
          {Disasters.map((disaster) => (
         <div key={disaster._id}>
-          <h3>{disaster.disasterType}</h3>
+          <h3>{disaster.title}</h3>
           <p>Location: {disaster.location}</p>
           <p>Status: {disaster.status}</p>
 

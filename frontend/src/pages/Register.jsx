@@ -5,6 +5,7 @@ import '../styles/Modals.css';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import { useRef } from 'react';
 const Register = () => {
 const navigate =useNavigate()
   const [user,setUser]=useState({username:'',role:'',password:'',email:'',contact:'',ngo:null,assignedDisasters:[]});
@@ -12,8 +13,16 @@ const navigate =useNavigate()
         e.preventDefault(); // ✅ stops reload
          console.log(user);
         try{
-         
-await axios.post('http://localhost:5000/api/register', user);
+     const userToSend = { ...user };
+    
+    if (userToSend.role !== 'volunteer') {
+      userToSend.ngo = null;
+    }
+
+    if (userToSend.ngo === '') {
+      userToSend.ngo = null;
+    }
+await axios.post('http://localhost:5000/api/register', userToSend);
     navigate('/login');
         }
     catch(err){
@@ -21,9 +30,15 @@ await axios.post('http://localhost:5000/api/register', user);
         alert('Registration failed. Please try again.');
     }
   }
-  const [ngos,setngos]=useState([]);
+const modalRef = useRef(null); 
+const [modalInstance, setModalInstance] = useState(null);
+const [ngos,setngos]=useState([]);
       useEffect(() => {
-         
+         const modalElement = document.getElementById('exampleModalCenter');
+  const modal = new window.bootstrap.Modal(modalElement);
+  modalRef.current = modalElement;
+  setModalInstance(modal);
+  modal.show();
          const fetchngos = async () => {
         
           try{
@@ -35,9 +50,7 @@ await axios.post('http://localhost:5000/api/register', user);
           }
          }
          fetchngos();
-        const modalElement = document.getElementById('exampleModalCenter');
-        const modal = new window.bootstrap.Modal(modalElement);
-        modal.show(); 
+       
       }, []);
   return (
      <div>
@@ -59,11 +72,16 @@ await axios.post('http://localhost:5000/api/register', user);
     <a href="/login" >Login here</a>
   </div>
               <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+  type="button"
+  className="btn-close"
+  onClick={() =>  {
+  if (modalInstance) {
+    modalInstance.hide();
+  }
+  navigate('/');
+}}
+  aria-label="Close"
+></button>
             </div>
             <div className="modal-body">
               <form  onSubmit={handleRegister}>

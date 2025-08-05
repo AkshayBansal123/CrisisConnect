@@ -6,16 +6,20 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import {useRef} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const Login = () => {
+  const modalRef = useRef(null); // 🔑 ref for modal instance
+  const [modalInstance, setModalInstance] = useState(null);
   useEffect(() => {
-       
-    const modalElement = document.getElementById('exampleModalCenter');
-    const modal = new window.bootstrap.Modal(modalElement);
-    modal.show(); 
+       const modalElement = document.getElementById('exampleModalCenter');
+  const modal = new window.bootstrap.Modal(modalElement);
+  modalRef.current = modalElement;
+  setModalInstance(modal);
+  modal.show();
+    
   }, []);
 const [user,setUser]=useState({username:'',password:''});
        const navigate= useNavigate();
@@ -57,12 +61,17 @@ const res = await axios.post('http://localhost:5000/api/login', user);
     <p className="mt-1">Don't have an account?</p>
     <a href="/register" >Register here</a>
   </div>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+             <button
+  type="button"
+  className="btn-close"
+  onClick={() =>  {
+  if (modalInstance) {
+    modalInstance.hide();
+  }
+  navigate('/');
+}}
+  aria-label="Close"
+></button> 
             </div>
             <div className="modal-body">
               <form onSubmit={handleLogin}>
