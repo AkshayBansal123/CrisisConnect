@@ -71,6 +71,8 @@ const [Volunteers,setVolunteers]=useState([]);
   }
 
 
+
+
     const links = [
     { text: 'About', href: '#', active: true },
     { text: 'Contact us', href: '#', disabled: false },
@@ -128,7 +130,10 @@ const [Volunteers,setVolunteers]=useState([]);
           </Link>
            </div>
       ))}
-  
+        <br>
+      </br>
+    <button onClick={()=>{navigate('/inventory')}}>Go to inventory</button>
+   
     </div>
   )
 }

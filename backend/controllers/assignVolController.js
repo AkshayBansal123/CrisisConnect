@@ -4,8 +4,8 @@ import User from '../models/User.js';
 const assignVolunteers = async (req, res) => {
   console.log("1111")
   const { disasterId, volunteerIds } = req.body;
-  console.log("🔥 disasterId received:", disasterId);
-  console.log("🔥 volunteerIds received:", volunteerIds);
+  console.log(" disasterId received:", disasterId);
+  console.log(" volunteerIds received:", volunteerIds);
 
 
   try {

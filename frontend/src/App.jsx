@@ -2,6 +2,7 @@ import React from 'react'
 import Volunteer from './pages/Volunteer'
 import NGOAdmin from './pages/NGOAdmin'
 import Inventory from './pages/Inventory'
+import InventoryForm from './pages/InventoryForm'
 import Reporter from './pages/Reporter'
 import ReportForm from './pages/ReportForm'
 import Home from './pages/Home'
@@ -31,8 +32,9 @@ const App = () => {
         <Route path="/reporter" element={<Reporter/>} />
           <Route path="/ngo" element={<NGOAdmin/>} />
           <Route path="/inventory" element={<Inventory/>} />
+           <Route path="/inventoryForm" element={<InventoryForm/>} />
              <Route path="/assign-volunteer/:disasterId" element={<AssignVolunteer />} />
-               <Route path="/assign-item/:id" element={<AssignItems/>} />
+               <Route path="/assign-item/:disasterId" element={<AssignItems/>} />
       </Routes>
     </Router>
   )

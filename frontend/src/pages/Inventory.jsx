@@ -18,11 +18,7 @@ const Inventory = () => {
        
   
         try {
-          const res = await axios.get('http://localhost:5000/api/ngo/inventory', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const res = await axios.get('http://localhost:5000/api/ngo/inventory');
   
           setInventory(res.data);
         } catch (err) {
@@ -35,12 +31,9 @@ const Inventory = () => {
   
       showInventory();
     }, [navigate]);
- const addItem=async()=>{
-  await axios.post()
- }
+
   return (
     <div>
-     <Link to="/InventoryForm"> Report new accident</Link>
       <ul>
       {
         inventory.map((item)=>(
@@ -51,13 +44,13 @@ const Inventory = () => {
             <p>Quantity: {item.quantity} {item.unit}</p>
             <p>Description: {item.description}</p>
             <p>Status: {item.status}</p>
-            {item.assignedDisaster && <p>Assigned To: {item.assignedDisaster}</p>}
-            <p>Last Updated: {new Date(item.lastUpdated).toLocaleDateString()}</p>
+          
+           
           </li>
         ))
       }
       </ul>
-      <button style={{height:'40px',width:'180px'}} onClick={addItem}>Add new item</button>
+      <button style={{height:'40px',width:'180px'}} onClick={() => navigate('/inventoryForm')}>Add new item</button>
     </div>
   )
 }

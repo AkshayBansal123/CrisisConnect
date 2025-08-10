@@ -20,7 +20,7 @@ const assignItems = async (req, res) => {
         disaster.assignedItems.push(id);
       }
     });
-
+ await disaster.save();
 
     // Update users
     await Inventory.updateMany(
@@ -28,9 +28,9 @@ const assignItems = async (req, res) => {
       { assignedDisaster: disasterId }
     );
 
-    res.status(200).json({ message: 'Volunteers and items successfully assigned' });
+    res.status(200).json({ message: 'items successfully assigned' });
   } catch (err) {
-    console.error('Error assigning volunteers/items:', err);
+    console.error('Error assigning items:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };
